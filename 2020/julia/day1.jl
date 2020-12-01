@@ -1,7 +1,13 @@
 using Combinatorics
 using DelimitedFiles
-using Printf
 using Test
+using PyCall
+
+working_dir = @__DIR__
+cd(working_dir)
+
+py_aocd_models = pyimport("aocd.models")
+puzzle = py_aocd_models.Puzzle(2020, 1)
 
 """
     product_findsum(a, Array; n, int; req_sum. int)
@@ -44,6 +50,10 @@ my_test = parse.(Int, my_test)
 # Alternative Loading
 my_test = readdlm("../resources/day1_input.txt", ',', Int)
 my_test = vec(my_test)
+
+# AOCD Loading
+my_test = split(puzzle.input_data, "\n")
+my_test = parse.(Int, my_test)
 
 # Answer 1
 println("Answer 1: ", product_findsum(my_test, 2, 2020))

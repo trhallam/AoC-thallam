@@ -36,7 +36,6 @@ In your expense report, what is the product of the three entries that sum to 202
 
 """
 
-import pathlib
 from itertools import combinations
 from math import prod
 
@@ -71,9 +70,11 @@ if __name__ == "__main__":
     assert test_result1 == 514579
 
     # Answer 1
-    cwd = pathlib.Path(".").absolute()
-    with open(cwd.parent / "resources/day1_input.txt", "r") as day1:
-        my_test = day1.readlines()
+    from aocd.models import Puzzle
+
+    puzzle = Puzzle(2020, 1)
+
+    my_test = puzzle.input_data.split("\n")
     my_test = [int(no) for no in my_test]
     print("Answer 1:", product_findsum(my_test, 2, 2020))
 
