@@ -1,4 +1,4 @@
-# Advent of Code by Tony Hallam
+# Advent of Code Solutions by Tony Hallam
 
 ## 2020
 
