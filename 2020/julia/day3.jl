@@ -23,38 +23,39 @@ end
 
 
 """
-    slope_navigator(spec, Array[String]; )
+    slope_navigator(slope::String, right::Int; down::Int=1)::Array{String}
 
-Check passwords are in spec for sled company
+Return all the cells visited in the slop by traversing right and down from  cell (1,1).
 
 """
 function slope_navigator(slope::String, right::Int; down::Int=1)::Array{String}
     slope_split = [String(s) for s in split(slope, "\n")]
+    width = length(slope_split[1])
     path = String[]
     for (i, contour) in enumerate(slope_split[1:down:end])
         if contour == ""
             continue
         end
-        index = 1 + (i - 1) * right
-        contour_l = repeat_contour(contour, index)
-        push!(path, contour_l[index:index])
+        index = 1 + mod((i - 1) * right, width)
+        # contour_l = repeat_contour(contour, index)
+        push!(path, contour[index:index])
     end
     return path
 end
 
 # Test 1
 test = (
-    "..##.........##.........##.........##.........##.........##.......\n" *
-    "#...#...#..#...#...#..#...#...#..#...#...#..#...#...#..#...#...#..\n" *
-    ".#....#..#..#....#..#..#....#..#..#....#..#..#....#..#..#....#..#.\n" *
-    "..#.#...#.#..#.#...#.#..#.#...#.#..#.#...#.#..#.#...#.#..#.#...#.#\n" *
-    ".#...##..#..#...##..#..#...##..#..#...##..#..#...##..#..#...##..#.\n" *
-    "..#.##.......#.##.......#.##.......#.##.......#.##.......#.##.....\n" *
-    ".#.#.#....#.#.#.#....#.#.#.#....#.#.#.#....#.#.#.#....#.#.#.#....#\n" *
-    ".#........#.#........#.#........#.#........#.#........#.#........#\n" *
-    "#.##...#...#.##...#...#.##...#...#.##...#...#.##...#...#.##...#...\n" *
-    "#...##....##...##....##...##....##...##....##...##....##...##....#\n" *
-    ".#..#...#.#.#..#...#.#.#..#...#.#.#..#...#.#.#..#...#.#.#..#...#.#\n"
+    "..##.......\n" *
+    "#...#...#..\n" *
+    ".#....#..#.\n" *
+    "..#.#...#.#\n" *
+    ".#...##..#.\n" *
+    "..#.##.....\n" *
+    ".#.#.#....#\n" *
+    ".#........#\n" *
+    "#.##...#...\n" *
+    "#...##....#\n" *
+    ".#..#...#.#\n"
 )
 
 slope_navigator(test, 3)
