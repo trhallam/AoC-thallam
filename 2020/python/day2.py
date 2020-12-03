@@ -43,7 +43,7 @@ import re
 PWD_SPEC = re.compile(r"(^.+\d|\w(?=:)|(?<=\s).+$)")
 
 
-def password_checker_sledco(spec: str, debug:bool=False) -> bool:
+def password_checker_sledco(spec: str, debug: bool = False) -> bool:
     """Check passwords are in spec for sled company
 
     Args:
@@ -58,7 +58,7 @@ def password_checker_sledco(spec: str, debug:bool=False) -> bool:
     return n1 <= split[2].count(split[1]) <= n2
 
 
-def password_checker_tobogganco(spec: str, debug:bool=False):
+def password_checker_tobogganco(spec: str, debug: bool = False):
     """Tobbogan Co Password Policy Checker
 
     Args:
