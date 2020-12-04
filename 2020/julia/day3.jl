@@ -70,6 +70,13 @@ end
 # AOCD Loading
 my_test = puzzle.input_data
 
+test_test = my_test |>
+    replace(_, "." => "0") |>
+    x -> replace(x, "#" => "1") |>
+    x -> split(x, '\n') |>
+    y -> [parse.(Int, split(x, "")) for x in y] |>
+    x -> hcat(x...)
+
 # Answer 1
 println("Answer 1: ", count(==("#"), slope_navigator(my_test, 3)))
 
