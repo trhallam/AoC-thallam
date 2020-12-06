@@ -151,3 +151,18 @@ if __name__ == "__main__":
     my_test = puzzle.input_data
     print("Answer 1: ", count_unique_yes(parse_input(my_test)))
     print("Answer 2: ", nunique(group_distograms(parse_input(my_test))))
+
+    # Using Julia from Python
+
+    #### importing directly from a file.
+    # import julia.Main as jlm
+    # import pathlib
+    # jl_module = pathlib.Path(__file__) / "../.." / "julia" / "aoc2020.jl"
+    # jlm.include(str(jl_module.absolute()))
+
+    from julia import aoc2020 as jlaoc
+
+    jlinput = jlaoc.parse_day6(my_test)
+
+    print("Julia Answer 1:", jlaoc.nunique(parse_input(my_test)))
+    print("Julia Answer 2:", jlaoc.allsayyes(parse_input(my_test)))

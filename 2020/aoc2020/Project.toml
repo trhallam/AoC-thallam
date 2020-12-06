@@ -1,0 +1,4 @@
+name = "aoc2020"
+uuid = "71fbd170-6384-4b5b-b0a8-fa72edd53fac"
+authors = ["Tony Hallam <trhallam@gmail.com>"]
+version = "0.1.0"

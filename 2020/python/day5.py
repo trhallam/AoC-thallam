@@ -112,3 +112,10 @@ if __name__ == "__main__":
     print("My Seat: ", left_seat + 1 + min(seat_ids))
     print("seat_ids", seat_ids[left_seat:])
     # print("PP1: ", sum(check_deep))
+
+    from julia import aoc2020 as jlaoc
+
+    jlinput = jlaoc.parse_day5(my_test)
+
+    print("Julia Answer 1:", max(jlaoc.as_seat_ids(jlinput)))
+    print("Julia Answer 2:", jlaoc.find_missing_seat(jlinput))
