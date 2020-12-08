@@ -9,5 +9,6 @@ module aoc2020
 include("day5.jl")
 include("day6.jl")
 include("day7.jl")
+include("day8.jl")
 
 end # module
