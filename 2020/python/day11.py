@@ -280,6 +280,7 @@ def fill_seats(input: list, patch_type: int = 1) -> list:
 
     output = padded.copy()
     previous_output = []
+    it = 0
     while previous_output != output:
         previous_output = output.copy()
         for i in range(1, new_height - 1):
@@ -290,6 +291,8 @@ def fill_seats(input: list, patch_type: int = 1) -> list:
                 if patch_type == 2:
                     pos_is = _patch2(previous_output, i, j)
                 output[i] = output[i][:j] + pos_is + output[i][j + 1 :]
+        it += 1
+    print("Its:", it)
     return output
 
 
