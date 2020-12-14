@@ -147,11 +147,17 @@ if __name__ == "__main__":
     S1
     W1
     R90
+    F1
     R180
+    F1
     R270
+    F1
     L90
+    F1
     L180
+    F2
     L270
+    F3
     """
 
     test = parse_input(test)
