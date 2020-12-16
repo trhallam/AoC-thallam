@@ -126,11 +126,8 @@ def find_field_order(header: list, tickets: list):
     valid_options = sorted(valid_options, key=lambda x: x[1])
 
     base = set(range(l))
-    used = base.difference(
-        functools.reduce(lambda c, n: c.union(set(n[2])), valid_options, set())
-    )
-
-    order = {header[valid_options[0][0]][0]: list(used)[0]}
+    used = set()
+    order = dict()
 
     for option in valid_options[1:]:
         h = header[option[0]][0]
