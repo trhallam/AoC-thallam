@@ -428,9 +428,9 @@ def create_neighbours(*args):
 
 def simulate(state):
 
-    dims = len(state[0])
-    dim_ranges = [get_minmax(state, d) for d in range(dims)]
-    dim_ranges = [range(d[0] - 2, d[1] + 2) for d in dim_ranges]
+    ndims = len(state[0])
+    dim_ranges = [get_minmax(state, d) for d in range(ndims)]
+    dim_ranges = [range(dmin - 1, dmax + 2) for dmin, dmax in dim_ranges]
 
     coordinates = itertools.product(*dim_ranges)
 
@@ -472,9 +472,7 @@ def printer(state):
 
 
 def boot(init_state, cycles=6):
-    for _ in range(cycles):
-        init_state = simulate(init_state)
-    return init_state
+    return functools.reduce(lambda c, n: simulate(c), range(cycles), init_state)
 
 
 if __name__ == "__main__":
@@ -499,4 +497,11 @@ if __name__ == "__main__":
 
     print("Answer 1: ", len(boot(parse_input(puzzle.input_data))))
 
-    print("Answer 1: ", len(boot(parse_input(puzzle.input_data, is_4d=True))))
+    parsed_4d = parse_input(puzzle.input_data, is_4d=True)
+
+    import time
+
+    start = time.time()
+    print("Answer 2: ", len(boot(parsed_4d)))
+    end = time.time()
+    print(end - start)
