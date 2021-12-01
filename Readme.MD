@@ -4,3 +4,7 @@
 
 Primary language is Python but I am attempting to learn a little bit of Julia on
 the side.
+
+## 2021
+
+Primary language is Rust.
