@@ -1,7 +1,6 @@
-mod day1;
-mod day2;
-mod day3;
-mod day4;
+mod days {
+    automod::dir!(pub "src/days");
+}
 
 use std::{
     env,
@@ -27,10 +26,11 @@ fn main() {
     let input = lines_from_file(input_file);
 
     match day {
-        1 => day1::day1(input),
-        2 => day2::day2(input),
-        3 => day3::day3(input),
-        4 => day4::day4(input),
+        1 => days::day1::day1(input),
+        2 => days::day2::day2(input),
+        3 => days::day3::day3(input),
+        4 => days::day4::day4(input),
+        5 => days::day5::day5(input),
         _ => println!("Unknown Day"),
     }
     // println!("Day 1\n______");
