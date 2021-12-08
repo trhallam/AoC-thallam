@@ -31,6 +31,7 @@ fn main() {
         3 => days::day3::day3(input),
         4 => days::day4::day4(input),
         5 => days::day5::day5(input),
+        6 => days::day6::day6(input),
         _ => println!("Unknown Day"),
     }
     // println!("Day 1\n______");

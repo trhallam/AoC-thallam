@@ -12,12 +12,12 @@ struct VentMap {
 }
 
 impl VentMap {
-    fn new(vent_lines: Vec<String>) -> Self {
+    fn new(vent_lines: Vec<String>, use_diag: bool) -> Self {
         let mut count = HashMap::new();
 
         let lines = vent_lines.into_iter().map(|x| String::from(x)).collect();
         let proc = process_input(lines);
-        let coords = get_coords(proc);
+        let coords = get_coords(proc, use_diag);
 
         for coord in coords.into_iter() {
             *count.entry(coord).or_insert(0) += 1
@@ -27,13 +27,7 @@ impl VentMap {
     }
 
     fn danger_count(&self) -> u32 {
-        let mut dc: u32 = 0;
-        for (_, val) in self.count_map.iter() {
-            if val >= &(2 as u32) {
-                dc += 1
-            }
-        }
-        return dc;
+        self.count_map.values().filter(|&&v| v >= 2).count() as u32
     }
 }
 
@@ -41,7 +35,7 @@ fn good_range(a: u32, b: u32) -> Vec<u32> {
     if a < b {
         return (a..=b).map(|x| x as u32).collect();
     } else {
-        return (b..=a).map(|x| x as u32).collect();
+        return (b..=a).rev().map(|x| x as u32).collect();
     }
 }
 
@@ -62,7 +56,7 @@ fn process_input(input: Vec<String>) -> Vec<u32> {
     return output;
 }
 
-fn get_coords(vals: Vec<u32>) -> Vec<Coord> {
+fn get_coords(vals: Vec<u32>, use_diag: bool) -> Vec<Coord> {
     let mut coords: Vec<Coord> = Vec::new();
     for vset in vals.chunks_exact(4) {
         if vset[0] == vset[2] {
@@ -74,13 +68,26 @@ fn get_coords(vals: Vec<u32>) -> Vec<Coord> {
                 coords.push(Coord { x: i, y: vset[1] })
             }
         }
+        if use_diag {
+            let is_diag = vset[0] as i32 - vset[2] as i32 == vset[1] as i32 - vset[3] as i32;
+            if is_diag {
+                for (i, j) in good_range(vset[0], vset[2])
+                    .iter()
+                    .zip(good_range(vset[1], vset[3]))
+                {
+                    coords.push(Coord { x: *i, y: j });
+                }
+            }
+        }
     }
     return coords;
 }
 
 pub fn day5(input: Vec<String>) {
-    let vm = VentMap::new(input);
+    let vm = VentMap::new(input.clone(), false);
     println!("Day 5 Part 1: {:?}", vm.danger_count());
+    let vm2 = VentMap::new(input.clone(), true);
+    println!("Day 5 Part 2: {:?}", vm2.danger_count());
 }
 
 #[test]
@@ -99,7 +106,7 @@ fn test_a() {
     ];
     let lines = raw_lines.into_iter().map(|x| String::from(x)).collect();
     let proc = process_input(lines);
-    let coords = get_coords(proc);
+    let coords = get_coords(proc, true);
     println!("{:?}", coords);
     // assert!(
     //     coords
@@ -109,5 +116,4 @@ fn test_a() {
     //             Coord { x: 0, y: 4 }
     //         ]
     // )
-    assert!(false)
 }
